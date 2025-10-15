@@ -1,0 +1,12 @@
+# Ignorar arquivos comuns em excesso
+node_modules/
+.env
+*.log
+*.lock
+package-lock.json
+yarn.lock
+
+# Ignorar arquivos de sistema
+*.iml
+*.sublime*
+*.code-workspace

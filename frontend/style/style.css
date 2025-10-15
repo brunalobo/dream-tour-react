@@ -1,0 +1,572 @@
+* {
+    font-family: 'Fira Sans Condensed', sans-serif !important;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #fff;
+    color: #333;
+}
+
+.main-header h2,
+.video-container h3,
+.data-section h3,
+.chart-title,
+.left-title,
+.right-title {
+    color: #004A64;
+    font-weight: 700;
+}
+
+.main-header h2 {
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+.video-container h3, .data-section h3 {
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+header {
+    position: relative;
+    background-color: transparent;
+    padding: 0;
+    overflow: visible;
+}
+
+.wavy-navbar {
+    position: relative;
+    z-index: 10;
+    height: 70px;
+    background-color: #004A64;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.wavy-navbar ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    position: relative;
+    z-index: 3;
+}
+
+.wavy-navbar svg {
+    display: none;
+}
+
+.wavy-navbar li {
+    margin: 0;
+}
+
+.wavy-navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 5px 20px;
+    position: relative;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.wavy-navbar a:hover {
+    color: #87CEEB;
+    transform: translateY(-2px);
+}
+
+.wavy-navbar a.active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 2px;
+}
+
+main {
+    padding: 20px 50px;
+}
+
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px; /* use gap instead of margin on image to keep content centered */
+    margin-bottom: 30px;
+    padding-bottom: 0px;
+    position: relative;
+    text-align: center;
+}
+
+.main-header-logo img {
+    height: 50px;
+    margin-right: 0; /* removed to avoid visual offset */
+}
+
+.main-header h2 {
+    color: #004A64;
+    font-weight: 600;
+    margin: 0 0 3px 0;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.header-line {
+    position: absolute;
+    bottom: 0;
+    left: 50px;
+    right: 50px;
+    width: auto;
+    height: 2px;
+    background-color: #004A64;
+    z-index: 0; /* keep line behind header content */
+}
+
+.main-header-logo,
+.main-header h2 {
+    position: relative;
+    z-index: 1; /* ensure logo and title sit above the line */
+}
+
+.content {
+    display: flex;
+    gap: 30px;
+    padding: 0 50px;
+    align-items: flex-start;
+}
+
+.left-column, .right-column {
+    flex: 1;
+}
+
+/* Títulos das colunas */
+.content-titles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.left-title {
+    color: #004A64;
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.right-title {
+    color: #004A64;
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+/* Vídeo/câmera */
+.video-container {
+    margin-bottom: 20px;
+}
+
+.video-container h3 {
+    color: #004A64;
+    font-weight: 600;
+    margin-bottom: 15px;
+    margin-top: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.charts-container h3 {
+    color: #004A64;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.camera-frame {
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.camera-frame iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+    display: block;
+}
+
+/* Dados */
+.data-section {
+    margin-bottom: 30px;
+}
+
+.data-section h3 {
+    color: #004A64;
+    font-weight: 600;
+    margin-bottom: 15px;
+    margin-top: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.wind-rose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-placeholder {
+    background-color: #fff;
+    border: 1px solid #e6eef2;
+    padding: 12px;
+    border-radius: 8px;
+    min-height: 60px;
+}
+
+/* Wind panel styles (matches the provided screenshot look) */
+.wind-panel {
+    width: 100%;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    border: 1px solid #d7eef2;
+}
+
+/* When WindRose is used inside the left panel we pass class 'wind-compass-svg' to
+     remove the small white box around the SVG and prevent the component from
+     forcing extra height. This keeps the main panel/card but removes the inner box. */
+.wind-compass-svg {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    display: block !important;
+    max-width: 340px !important;
+}
+.wind-compass-svg > div {
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+}
+.wind-compass-svg svg { background: transparent; }
+
+/* wrapper for the SVG so it doesn't expand the left panel height while still
+    allowing labels to render outside the circle via overflow: visible */
+.wind-svg-wrap{ width:100%; height:460px; display:flex; align-items:center; justify-content:center; overflow:visible; position:relative }
+.wind-svg{ width:420px; height:420px; overflow:visible; display:block }
+/* wind panel styles are defined later once; duplicate earlier definitions removed to avoid conflicts */
+
+/* vertical wind panel */
+.wind-panel-vertical { background: white; border-radius:6px; padding:8px; border:1px solid #d7eef2; box-shadow:0 2px 6px rgba(0,0,0,0.06); }
+.wind-panel-vertical svg { max-width: 100%; height: auto; }
+.compass-label { font-size:13px; fill:#2b5962; font-weight:600; font-family: 'Fira Sans Condensed', sans-serif !important; }
+
+.angle-badge-large {
+    background: #fff;
+    color: #114a52;
+    border: 1px solid #d0e6e9;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-weight: 800;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+/* New styles for left wind info panel */
+.wind-panel-header { display:flex; align-items:center; justify-content:space-between; background:#78d200; color:#004A64; padding:8px 12px; }
+.wind-title{ font-weight:800; letter-spacing:1px; }
+.wind-status{ font-size:12px; color:#114a52; }
+.wind-subheader{ background:#cfe6ea; color:#114a52; padding:8px 12px; font-weight:700; margin-bottom:22px; }
+/* make compass stack vertically and give more top padding so rose has breathing room */
+.wind-compass{ position:relative; padding:28px 0 0 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; overflow:visible; }
+/* angle badge becomes a separated inline block below the compass */
+.angle-badge{ position:static; display:inline-block; margin:12px auto 0; background:#fff; border:1px solid #d0e6e9; padding:6px 10px; border-radius:8px; font-weight:700; color:#114a52; box-shadow:0 2px 6px rgba(0,0,0,0.06); }
+.wind-values{ display:flex; justify-content:space-between; align-items:center; padding:14px 14px; border-top:1px solid #eef7f8; margin-top:8px; }
+.wind-label{ color:#2b5962; font-weight:600; }
+.wind-value{ color:#114a52; font-weight:700; }
+.wind-subcard-row{ display:flex; gap:10px; padding:12px; }
+.wind-subcard-column{ display:flex; flex-direction:column; gap:10px; padding:12px; }
+.wind-subcard{ background:#eef7f8; border-radius:6px; padding:12px; border:1px solid #d7eef2; }
+.wind-subcard.full-width{ width:100%; }
+.wind-subcard-value{ font-size:12px; color:#2b5962; margin-bottom:6px }
+.wind-subcard-item{ font-size:13px; color:#114a52; display:flex; justify-content:space-between }
+.wind-subcard-item span{ font-weight:700; }
+
+/* ensure compass area allows overflow so labels aren't clipped */
+.wind-compass svg{ display:block; overflow:visible; }
+.charts-container .chart-placeholder {
+    min-height: 260px;
+    overflow:visible;
+}
+
+/* Seção de gráficos */
+.charts-container {
+    margin-top: 20px;
+}
+
+.charts-container h3 {
+    color: #004A64;
+    font-weight: 600;
+    margin-bottom: 20px;
+    margin-top: 0;
+    margin-left: 10px;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chart-item {
+    margin-bottom: 25px;
+}
+
+.chart-title {
+    color: #000;
+    font-weight: 700;
+    margin: 10px 0 8px 0;
+    font-size: 28px;
+    font-family: 'Fira Sans Condensed', sans-serif !important;
+    text-transform: none;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.chart-placeholder {
+    background-color: #f8f9fa;
+    border: 2px dashed #004A64;
+    border-radius: 8px;
+    padding: 40px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px; /* slightly larger placeholder font */
+}
+
+.chart-placeholder p {
+    color: #004A64;
+    padding-top: 10px;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Make Tempo (temp) and Maré charts taller and scale fonts for readability */
+#tide-chart.chart-placeholder, #temp-chart.chart-placeholder {
+    min-height: 360px; /* increased height for proportional look */
+    padding: 24px;
+}
+
+#tide-chart canvas, #temp-chart canvas {
+    /* ensure chart canvas can fill container when maintainAspectRatio:false */
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Increase axis and legend font sizes for these charts when Chart.js doesn't pick options */
+.chart-item h4 { font-size: 18px; color: #004A64; margin-bottom: 12px; }
+
+
+.chart-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 200px;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-placeholder {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+.chart-placeholder p {
+    margin: 0;
+}
+
+.camera {
+    background-color: #000;
+    position: relative;
+    padding-bottom: 56.25%; 
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.camera iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.camera-label {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 8px 12px;
+    margin: 0;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.data-table {
+    margin-bottom: 20px;
+}
+
+.data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.data-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #004A64;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.data-table td {
+    font-size: 14px;
+    color: #333;
+  }
+
+.data-table td:first-child {
+    font-weight: 500;
+    color: #004A64;
+}
+
+.data-table td span {
+    font-weight: 600;
+    color: #333;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.graficos-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graficos-placeholder {
+    color: #666;
+    font-size: 16px;
+    text-align: center;
+}
+
+footer {
+    background-color: #073d4a; /* dark teal */
+    color: white;
+    padding: 28px 24px 40px 24px;
+    position: relative;
+    overflow: visible;
+}
+
+footer::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -14px;
+    height: 14px;
+    background: #222; /* dark strip under footer */
+}
+
+/* central container to constrain width */
+.footer-inner{
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.footer-left{ flex: 0 0 220px; display:flex; align-items:center; }
+.footer-left img{ max-height:84px; width:auto }
+
+.footer-center{ flex: 1 1 520px; display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; }
+.qr-codes{ display:flex; gap:12px; align-items:center; justify-content:center }
+.qr-item img{ height:86px }
+.feedback-text{ color: #d8eef0; max-width:520px; font-size:14px; line-height:1.4 }
+
+.footer-right{ flex: 0 0 220px; display:flex; align-items:center; justify-content:flex-end }
+.footer-right img{ max-height:120px; width:auto }
+
+/* Responsive: stack footer on small screens */
+@media (max-width: 880px){
+    .footer-inner{ flex-direction:column; align-items:center; }
+    .footer-left, .footer-right{ justify-content:center }
+    .footer-center{ order:2 }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-left { margin-left: 12px; }
+    .footer-center { right: 120px; }
+    .footer-left img { max-height: 50px; }
+    .footer-logo-right img { max-height: 80px; }
+    .qr-item img { max-height: 60px; }
+    .feedback-text { max-width: 220px; font-size: 13px; }
+}
+
+.surfer-illustration img {
+    height: 180px;
+}
+
