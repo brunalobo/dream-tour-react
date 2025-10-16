@@ -8,7 +8,11 @@ function degToCompass(deg) {
 }
 
 export default function WindRose({ data, className = '' }) {
-  const dir = Number(data?.winddir ?? data?.wdir10m ?? 0) || 0;
+  let dir = Number(data?.winddir ?? data?.wdir10m ?? 0) || 0;
+  
+  // Somar 180º e manter entre 0º e 360º
+  dir = (dir + 180) % 360;
+  
   const wspdMs = Number(data?.wspd10m ?? data?.windSpeed ?? 0) || 0;
   const wspdKn = wspdMs * 1.943844; // m/s -> knots
   const rotation = dir; // rotate needle by degrees
