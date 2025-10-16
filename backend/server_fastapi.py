@@ -134,27 +134,33 @@ async def shutdown_event():
 
 
 @app.get("/api/station/history")
-async def get_station_history(n: int = 4):
+async def get_station_history(n: int = 15, interval: int = 36):
     """
-    Retorna os últimos n registros de dados meteorológicos.
+    Retorna os últimos n registros de dados meteorológicos com intervalo.
     Busca do banco de dados PostgreSQL.
     
     Args:
-        n: Número de registros a retornar (padrão: 4 = dados de 6 em 6 horas)
+        n: Número de registros a retornar (padrão: 15)
+        interval: Intervalo de coletas (padrão: 36 = 6 horas, cada coleta é 10 min)
     
     Returns:
-        Lista de observações com timestamps e dados
+        Lista de observações com timestamps e dados (a cada 6 horas)
     """
     try:
         db = get_db()
-        observations = db.get_latest(n)
+        # Busca mais dados para poder pegar a cada 6 horas
+        total_to_fetch = n * interval
+        observations = db.get_latest(total_to_fetch)
         
         if observations:
+            # Pega a cada 'interval' registros (6 em 6 horas)
+            filtered_obs = observations[::interval][-n:]
+            
             return {
                 "status": "success",
-                "count": len(observations),
+                "count": len(filtered_obs),
                 "source": "database",
-                "observations": observations
+                "observations": filtered_obs
             }
         else:
             return {

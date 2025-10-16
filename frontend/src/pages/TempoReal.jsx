@@ -23,9 +23,9 @@ export default function TempoReal() {
           setData(res.data || res);
         }
         
-        // Buscar histórico (últimas 4 leituras = 6 em 6 horas a partir de 10 minutos)
+        // Buscar histórico (últimas 15 leituras a cada 6 horas = ~90 horas de histórico)
         try {
-          const historyData = await fetchStationHistory(4);
+          const historyData = await fetchStationHistory(15);
           if (mounted) {
             setHistory(historyData);
           }
