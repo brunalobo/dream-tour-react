@@ -4,7 +4,7 @@ import App from './App'
 import { Chart } from 'chart.js'
 
 import 'chart.js/auto'
-import '../style/style.css'
+import './style/style.css'
 
 // Plugin para desenhar setas no gráfico de vento
 const arrowPlugin = {

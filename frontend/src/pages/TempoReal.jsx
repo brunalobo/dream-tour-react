@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import WindRose from '../components/WindRose';
-import { fetchStationNowDirect } from '../components/stationService';
+import { fetchStationNowDirect, fetchStationHistory } from '../components/stationService';
 import { Bar, Line } from 'react-chartjs-2';
 
 export default function TempoReal() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [history, setHistory] = useState([]);
   const chartRef = React.useRef(null);
 
   useEffect(() => {
@@ -15,9 +16,22 @@ export default function TempoReal() {
       try {
         setLoading(true);
         setError(null);
+        
+        // Buscar dados atual
         const res = await fetchStationNowDirect();
         if (mounted) {
           setData(res.data || res);
+        }
+        
+        // Buscar histórico (últimas 4 leituras = 6 em 6 horas a partir de 10 minutos)
+        try {
+          const historyData = await fetchStationHistory(4);
+          if (mounted) {
+            setHistory(historyData);
+          }
+        } catch (histErr) {
+          console.warn('Failed to load history:', histErr.message);
+          // Se falhar, continua sem histórico
         }
       } catch (err) {
         console.error('Failed to load data:', err);
@@ -40,8 +54,8 @@ export default function TempoReal() {
   }, []);
 
   // compute wind speed in knots for charts
-  const wspdKn = data ? Number(data.wspd10m || data.windSpeed || 0) * 1.943844 : 0;
-  const gustKn = data ? Number(data.gust || data.wgust || 0) * 1.943844 : 0;
+  const wspdKn = data ? Number(data.windSpeed || 0) * 1.943844 : 0;
+  const gustKn = data ? Number(data.windGust || 0) * 1.943844 : 0;
   const temp = data ? Number(data.temp || 0) : 0;
   const humidity = data ? Number(data.humidity || 0) : 0;
   const pressure = data ? Number(data.pressure_hpa || 0) : 0;
@@ -122,11 +136,16 @@ export default function TempoReal() {
                   <Line
                     ref={chartRef}
                     data={{
-                      labels: Array.from({length: 24}, (_, i) => `${String(i).padStart(2, '0')}:00`),
+                      labels: history.length > 0 
+                        ? history.map(obs => {
+                            const date = new Date(obs.obsTimeLocal);
+                            return date.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+                          })
+                        : Array.from({length: 24}, (_, i) => `${String(i).padStart(2, '0')}:00`),
                       datasets: [
                         {
                           label: 'Velocidade do vento',
-                          data: Array.from({length: 24}, () => wspdKn + (Math.random() - 0.5) * 3),
+                          data: history.map(obs => parseFloat((obs.windSpeed || 0).toFixed(1))),
                           borderColor: '#2196F3',
                           backgroundColor: 'transparent',
                           borderWidth: 2,
@@ -138,8 +157,8 @@ export default function TempoReal() {
                           fill: false
                         },
                         {
-                          label: 'Velocidade de rajada',
-                          data: Array.from({length: 24}, () => gustKn + (Math.random() - 0.5) * 3),
+                          label: 'Rajada',
+                          data: history.map(obs => parseFloat((obs.windGust || 0).toFixed(1))),
                           borderColor: '#4CAF50',
                           backgroundColor: 'transparent',
                           borderWidth: 2,
@@ -181,10 +200,13 @@ export default function TempoReal() {
                 <div id="pressure-chart" style={{ height: '380px', position: 'relative' }}>
                   <Line
                     data={{
-                      labels: Array.from({length: 24}, (_, i) => `${String(i).padStart(2, '0')}:00`),
+                      labels: history.map(obs => {
+                        const date = new Date(obs.obsTimeLocal);
+                        return date.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+                      }),
                       datasets: [{
                         label: 'Pressão Atmosférica',
-                        data: Array.from({length: 24}, () => pressure + (Math.random() - 0.5) * 5),
+                        data: history.map(obs => obs.pressure || 0),
                         borderColor: '#FF9800',
                         backgroundColor: 'transparent',
                         borderWidth: 2,

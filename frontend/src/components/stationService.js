@@ -26,6 +26,24 @@ export async function fetchStationNow() {
   throw new Error('No station endpoint available');
 }
 
+// Buscar histórico de dados (últimos n registros)
+export async function fetchStationHistory(n = 24) {
+  const url = `${BASE_LOCAL}/api/station/history?n=${n}`;
+
+  try {
+    const response = await fetchJson(url);
+    
+    if (response.status !== 'success' || !response.observations) {
+      throw new Error('Failed to fetch history data');
+    }
+
+    return response.observations;
+  } catch (err) {
+    console.error('fetchStationHistory error:', err);
+    throw err;
+  }
+}
+
 // Requisição direta à API de estação meteorológica (weather.com PWS)
 export async function fetchStationNowDirect() {
   const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
@@ -49,6 +67,13 @@ export async function fetchStationNowDirect() {
       throw new Error('No observation data in response');
     }
 
+    // Função auxiliar para garantir que velocidades nunca sejam negativas
+    const ensureNonNegative = (val) => {
+      if (val === null || val === undefined) return 0;
+      const num = Number(val);
+      return Math.max(0, num);
+    };
+
     // Normalizar resposta para o formato que o frontend espera
     const metric = obs.metric_si || {};
     return {
@@ -57,20 +82,20 @@ export async function fetchStationNowDirect() {
         obsTimeLocal: obs.obsTimeLocal,
         winddir: obs.winddir,
         wdir10m: obs.winddir,
-        wspd10m: metric.windSpeed,
-        windSpeed: metric.windSpeed,
-        gust: metric.windGust,
-        wgust: metric.windGust,
+        wspd10m: ensureNonNegative(metric.windSpeed),
+        windSpeed: ensureNonNegative(metric.windSpeed),
+        gust: ensureNonNegative(metric.windGust),
+        wgust: ensureNonNegative(metric.windGust),
         humidity: obs.humidity, // pode ser null
         temp: metric.temp, // pode ser null
         pressure_hpa: metric.pressure, // em hPa
         pressure: metric.pressure,
-        precip_mm: metric.precipRate,
-        precip: metric.precipRate,
+        precip_mm: Math.max(0, Number(metric.precipRate || 0)), // precipitação não pode ser negativa
+        precip: Math.max(0, Number(metric.precipRate || 0)),
         tide: null, // API não fornece dados de maré
-        waveHeight: metric.windSpeed || 0,
-        solarRadiation: obs.solarRadiation,
-        uv: obs.uv
+        waveHeight: ensureNonNegative(metric.windSpeed) || 0,
+        solarRadiation: Math.max(0, Number(obs.solarRadiation || 0)),
+        uv: Math.max(0, Number(obs.uv || 0))
       }
     };
   } catch (err) {
@@ -79,4 +104,4 @@ export async function fetchStationNowDirect() {
   }
 }
 
-export default { fetchStationNow, fetchStationNowDirect };
+export default { fetchStationNow, fetchStationNowDirect, fetchStationHistory };
