@@ -1,6 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Surfabilidade() {
+  const imageBaseUrl = 'https://dev.atmosmarine.com/public/produtos/oceanpact_surf/painel_surfabilidade.png';
+  const [ts, setTs] = useState(Date.now());
+
+  useEffect(() => {
+    // atualiza de 10 em 10 minutos
+    const interval = setInterval(() => setTs(Date.now()), 600000);
+    setTs(Date.now());
+    return () => clearInterval(interval);
+  }, []);
+
+  function buildCacheBustedUrl(base, t) {
+    try {
+      const u = new URL(base, window.location.href);
+      u.searchParams.set('cb', String(t));
+      return u.toString();
+    } catch (e) {
+      return `${base}${base.includes('?') ? '&' : '?'}cb=${t}`;
+    }
+  }
+
   return (
     <div>
       <header>
@@ -28,34 +48,35 @@ export default function Surfabilidade() {
         </div>
 
         <div className="content">
-          <div className="left-column">
-          </div>
-
-          <div className="right-column">
+          <div className="surf-main">
+            <div className="surf-container">
+              <div className="camera-frame camera-frame--centered">
+                <img
+                  className="surf-image"
+                  src={buildCacheBustedUrl(imageBaseUrl, ts)}
+                  alt="Surfabilidade gerada"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </main>
 
       <footer>
-        <div className="footer-left">
-          <img src="/image/logo_ocp_branca.png" alt="OceanPact Logo" />
-        </div>
-        <div className="footer-center">
-          <div className="qr-codes">
-            <div className="qr-item">
-              <img src="/image/qr_code.png" alt="QR Code App Store" />
+        <div className="footer-inner">
+          <div className="footer-left">
+            <img src="/image/logo_ocp_branca.png" alt="OceanPact Logo" />
+          </div>
+          <div className="footer-center">
+            <div className="qr-codes">
+              <div className="qr-item"><img src="/image/qr_code.png" alt="QR Code" /></div>
+            </div>
+            <div className="feedback-text">
+              Sua opinião é importante. Baixe o SeaSpot, experimente e compartilhe o que achou do app. Envie um e-mail para <b>seaspot@oceanpact.com</b> e dê seu feedback.
             </div>
           </div>
-          <div className="feedback-text">
-            <p>Sua opinião é importante. Baixe o SeaSpot, experimente e compartilhe o que achou do app e de que
-              forma ele pode melhorar. Envie um e-mail para <b>seaspot@oceanpact.com</b> e dê seu feedback.</p>
-          </div>
-        </div>
-        <div className="footer-right">
-          <div className="seaspot-section">
-            <div className="footer-logo-right">
-              <img src="/image/surf_seaspot_icon.png" alt="OceanPact SeaSpot" />
-            </div>
+          <div className="footer-right">
+            <img src="/image/surf_seaspot_icon.png" alt="OceanPact SeaSpot" />
           </div>
         </div>
       </footer>

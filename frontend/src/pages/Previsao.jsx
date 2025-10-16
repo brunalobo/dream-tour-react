@@ -37,25 +37,20 @@ export default function Previsao() {
       </main>
 
       <footer>
-        <div className="footer-left">
-          <img src="/image/logo_ocp_branca.png" alt="OceanPact Logo" />
-        </div>
-        <div className="footer-center">
-          <div className="qr-codes">
-            <div className="qr-item">
-              <img src="/image/qr_code.png" alt="QR Code App Store" />
+        <div className="footer-inner">
+          <div className="footer-left">
+            <img src="/image/logo_ocp_branca.png" alt="OceanPact Logo" />
+          </div>
+          <div className="footer-center">
+            <div className="qr-codes">
+              <div className="qr-item"><img src="/image/qr_code.png" alt="QR Code" /></div>
+            </div>
+            <div className="feedback-text">
+              Sua opinião é importante. Baixe o SeaSpot, experimente e compartilhe o que achou do app. Envie um e-mail para <b>seaspot@oceanpact.com</b> e dê seu feedback.
             </div>
           </div>
-          <div className="feedback-text">
-            <p>Sua opinião é importante. Baixe o SeaSpot, experimente e compartilhe o que achou do app e de que
-              forma ele pode melhorar. Envie um e-mail para <b>seaspot@oceanpact.com</b> e dê seu feedback.</p>
-          </div>
-        </div>
-        <div className="footer-right">
-          <div className="seaspot-section">
-            <div className="footer-logo-right">
-              <img src="/image/surf_seaspot_icon.png" alt="OceanPact SeaSpot" />
-            </div>
+          <div className="footer-right">
+            <img src="/image/surf_seaspot_icon.png" alt="OceanPact SeaSpot" />
           </div>
         </div>
       </footer>

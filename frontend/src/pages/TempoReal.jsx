@@ -184,11 +184,10 @@ export default function TempoReal() {
 
           <div className="footer-center">
             <div className="qr-codes">
-              <div className="qr-item"><img src="/image/qr_code.png" alt="QR Google Play" /></div>
+              <div className="qr-item"><img src="/image/qr_code.png" alt="QR Code" /></div>
             </div>
             <div className="feedback-text">
-              Sua opinião é importante. Baixe o SeaSpot, experimente e compartilhe o que achou do app e de que forma ele pode
-              melhorar. Envie um e-mail para <b>seaspot@oceanpact.com</b> e dê seu feedback.
+              Sua opinião é importante. Baixe o SeaSpot, experimente e compartilhe o que achou do app. Envie um e-mail para <b>seaspot@oceanpact.com</b> e dê seu feedback.
             </div>
           </div>
 

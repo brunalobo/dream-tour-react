@@ -26,14 +26,21 @@ body {
     letter-spacing: 1px;
 }
 
-.video-container h3, .data-section h3 {
-    font-size: 18px;
-    text-transform: uppercase;
-}
-
 header {
     position: relative;
-    background-color: transparent;
+    background-color: transparent
+}
+
+    .footer-right{
+    flex: 0 0 auto; 
+    display:flex; 
+    align-items:center; 
+    justify-content:flex-end; 
+}
+
+.footer-right img{ 
+    max-height: 140px; 
+    width:auto;
     padding: 0;
     overflow: visible;
 }
@@ -333,6 +340,25 @@ main {
     margin-top: 20px;
 }
 
+
+/* Styles for Surfabilidade page */
+.surf-page {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background: #fff;
+}
+.surf-header {
+    padding: 18px 0;
+    text-align: center;
+    background: #004A64;
+    color: #fff;
+}
+.surf-header h2 { margin: 0; font-size: 22px; letter-spacing: 1px; }
+.surf-main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.surf-container { width: 100%; max-width: 1100px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 6px; overflow: hidden; background: #fff; }
+.surf-iframe { width: 100%; height: 700px; border: none; display: block; }
+.surf-footer { padding: 12px; text-align: center; font-size: 13px; color: #666; }
 .charts-container h3 {
     color: #004A64;
     font-weight: 600;
@@ -511,21 +537,12 @@ main {
 }
 
 footer {
-    background-color: #073d4a; /* dark teal */
+    background-color: #004A64; /* match app color */
     color: white;
-    padding: 28px 24px 40px 24px;
+    padding: 20px 24px;
     position: relative;
     overflow: visible;
-}
-
-footer::after{
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -14px;
-    height: 14px;
-    background: #222; /* dark strip under footer */
+    min-height: 160px;
 }
 
 /* central container to constrain width */
@@ -538,16 +555,45 @@ footer::after{
     gap: 24px;
 }
 
-.footer-left{ flex: 0 0 220px; display:flex; align-items:center; }
-.footer-left img{ max-height:84px; width:auto }
+.footer-left{ flex: 1 1 auto; display:flex; align-items:center; justify-content:center; }
+.footer-left img{ max-height: 140px; width:auto }
 
-.footer-center{ flex: 1 1 520px; display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; }
-.qr-codes{ display:flex; gap:12px; align-items:center; justify-content:center }
-.qr-item img{ height:86px }
-.feedback-text{ color: #d8eef0; max-width:520px; font-size:14px; line-height:1.4 }
+.footer-center{
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    text-align: left;
+}
+.qr-codes {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+}
+.qr-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.qr-item img {
+    height: 110px;
+    width: auto;
+    display: block;
+}
+.feedback-text {
+    color: #e6f7fb;
+    max-width: 220px;
+    font-size: 16px;
+    line-height: 1.3;
+    margin: 0;
+    word-wrap: break-word;
+}
 
-.footer-right{ flex: 0 0 220px; display:flex; align-items:center; justify-content:flex-end }
-.footer-right img{ max-height:120px; width:auto }
+.footer-right{ flex: 1 1 auto; display:flex; align-items:center; justify-content:center; }
+.footer-right img{ max-height: 180px; width:auto; }
 
 /* Responsive: stack footer on small screens */
 @media (max-width: 880px){
@@ -569,4 +615,17 @@ footer::after{
 .surfer-illustration img {
     height: 180px;
 }
+
+/* Footer adjustments for Surfabilidade: place QR and text side-by-side and center images vertically */
+.surf-footer .footer-inner { justify-content: space-between; align-items: center; }
+.surf-footer .footer-center { display: flex; flex-direction: row; align-items: center; gap: 18px; text-align: left; }
+.surf-footer .qr-codes { justify-content: flex-start; }
+.surf-footer .qr-item img { height: 86px; display: block; }
+.surf-footer .feedback-text { color: #d8eef0; max-width: 560px; font-size: 14px; line-height: 1.4; text-align: left; }
+.surf-footer .footer-left, .surf-footer .footer-right { display:flex; align-items:center; }
+.surf-footer .footer-left img, .surf-footer .footer-right img { max-height: 84px; }
+
+/* Image styling for Surfabilidade page when using <img> instead of iframe */
+.camera-frame { background-color: #f0f0f0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+.camera-frame .surf-image { display: block; margin: 0 auto; max-width: 100%; height: auto; }
 
